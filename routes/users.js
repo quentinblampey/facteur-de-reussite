@@ -23,7 +23,17 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVES  A NEW User WITH ONLY A NAME SPECIFIED */
 router.post('/', function(req, res, next) {
-  User.create({pseudo: req.body.pseudo, currentBreak : [], nextBreak : [], details: []}, function (err, post) {
+  firstTrees = [
+    {
+      "id" : "1",
+      "personalization" : "[]"
+    },
+    { 
+      "id" : "2",
+      "personalization" : "[]"
+    }
+  ]
+  User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: []}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
