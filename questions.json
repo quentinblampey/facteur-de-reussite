@@ -1,0 +1,51 @@
+[
+    {
+        "idQ": 1,
+        "body": "Coucou !",
+        "personalization" : [],
+	"answers" : [
+		{
+			"idQ" : 0,
+			"body" : "Salut !",
+			"reaction" : "Merci pour ta réponse",
+			"personalization" : [],
+			"breakPoint" : true
+		}
+	]
+    },
+   {
+        "idQ": 2,
+        "body": "Encore une question !",
+        "personalization" : [],
+	"answers" : [
+		{
+			"idQ" : 3,
+			"body" : "Encore ?",
+			"reaction" : "Oui encore…",
+			"personalization" : [],
+			"breakPoint" : false
+		},
+		{
+			"idQ" : 3,
+			"body" : "Encore !",
+			"reaction" : "Oui encore…",
+			"personalization" : [],
+			"breakPoint" : false
+		}
+	]
+    },
+   {
+        "idQ": 3,
+        "body": "Dernière question",
+        "personalization" : [],
+	"answers" : [
+		{
+			"idQ" : 0,
+			"body" : "Ok",
+			"reaction" : "À la prochaine",
+			"personalization" : [],
+			"breakPoint" : true
+		}
+	]
+    }  
+]
