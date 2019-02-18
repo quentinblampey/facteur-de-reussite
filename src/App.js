@@ -26,11 +26,12 @@ class App extends Component {
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              BOOK CATALOG
+              FACTEUR DE REUSSITE
             </h3>
           </div>
           <div class="panel-body">
-            <h4><Link to="/create"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Book</Link></h4>
+            <button><Link to="/chat"></Link></button>
+            <h4><Link to="/chat"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Go to Chat</Link></h4>
             <table class="table table-stripe">
               <thead>
                 <tr>
