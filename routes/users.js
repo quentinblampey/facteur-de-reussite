@@ -21,9 +21,9 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/* SAVE User */
+/* SAVES  A NEW User WITH ONLY A NAME SPECIFIED */
 router.post('/', function(req, res, next) {
-  User.create(req.body, function (err, post) {
+  User.create({pseudo: req.body.pseudo, currentBreak : [], nextBreak : [], details: []}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
