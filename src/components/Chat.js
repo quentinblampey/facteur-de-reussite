@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-class Create extends Component {
+class Chat extends Component {
 
   constructor() {
     super();
@@ -79,4 +79,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default Chat;

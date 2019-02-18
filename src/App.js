@@ -30,7 +30,6 @@ class App extends Component {
             </h3>
           </div>
           <div class="panel-body">
-            <button><Link to="/chat"></Link></button>
             <h4><Link to="/chat"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Go to Chat</Link></h4>
             <table class="table table-stripe">
               <thead>
