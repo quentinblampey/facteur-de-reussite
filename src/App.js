@@ -31,7 +31,7 @@ class App extends Component {
           </div>
           <div class="panel-body">
             <button><Link to="/chat"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Go to Chat</Link></button>
-            Heyo
+            <p>Heyo</p>
           </div>
         </div>
       </div>
