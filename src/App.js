@@ -23,12 +23,12 @@ class App extends Component {
 
     const { pseudo } = this.state;
 
-    axios.get
 
-    axios.post('/api/users', { pseudo })
+    axios.post('/api/users', { pseudo: pseudo })
       .then((result) => {
         this.props.history.push("/chat");
         console.log(this.props.history);
+        console.log(result)
       });
     
   }

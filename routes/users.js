@@ -25,12 +25,12 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
   firstTrees = [
     {
-      "id" : "1",
-      "personalization" : "[]"
+      "idQ" : 1,
+      "personalization": []
     },
     { 
-      "id" : "2",
-      "personalization" : "[]"
+      "idQ" : 2,
+      "personalization" : []
     }
   ]
   User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: []}, function (err, post) {
