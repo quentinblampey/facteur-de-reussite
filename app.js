@@ -11,7 +11,7 @@ var questions = require('./routes/questions');
 var app = express();
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/mern-crud', { useNewUrlParser: true, promiseLibrary: require('bluebird') })
+mongoose.connect('mongodb://localhost/api', { useNewUrlParser: true, promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
