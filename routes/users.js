@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
       "id" : "1",
       "personalization" : "[]"
     },
-    {
+    { 
       "id" : "2",
       "personalization" : "[]"
     }
