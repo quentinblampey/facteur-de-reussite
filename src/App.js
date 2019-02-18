@@ -8,52 +8,47 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      pseudo:''
     };
   }
 
-  componentDidMount() {
-    axios.get('/api/book')
-      .then(res => {
-        this.setState({ books: res.data });
-        console.log(this.state.books);
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { pseudo } = this.state;
+
+    axios.get
+
+    axios.post('/api/users', { pseudo })
+      .then((result) => {
+        this.props.history.push("/chat");
+        console.log(this.props.history);
       });
+    
   }
 
   render() {
+    const { pseudo } = this.state;
     return (
       <div class="container">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              BOOK CATALOG
-            </h3>
-          </div>
           <div class="panel-body">
-            <h4><Link to="/create"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Book</Link></h4>
-            <table class="table table-stripe">
-              <thead>
-                <tr>
-                  <th>ISBN</th>
-                  <th>Title</th>
-                  <th>Author</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.books.map(book =>
-                  <tr>
-                    <td><Link to={`/show/${book._id}`}>{book.isbn}</Link></td>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+            FACTEUR DE REUSSITE
+            <form onSubmit={this.onSubmit}>
+              <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
+              <button type="submit" class="btn btn-default">Go to chat</button>
+            </form>
           </div>
         </div>
       </div>
-    );
-  }
+    );}
+
 }
 
 export default App;

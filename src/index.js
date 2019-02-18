@@ -5,17 +5,13 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import serviceWorker from './serviceWorker';
-import Edit from './components/Edit';
-import Create from './components/Create';
-import Show from './components/Show';
+import Chat from './components/Chat';
 
 ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
-        <Route path='/edit/:id' component={Edit} />
-        <Route path='/create' component={Create} />
-        <Route path='/show/:id' component={Show} />
+        <Route path='/chat' component={Chat} />
       </div>
   </Router>,
   document.getElementById('root')
