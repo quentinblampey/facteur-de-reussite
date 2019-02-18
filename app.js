@@ -5,6 +5,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var book = require('./routes/book');
+var users = require('./routes/users');
+var answers = require('./routes/answers');
 var app = express();
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
@@ -18,6 +20,8 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/book', book);
+app.use('/api/users', users);
+app.use('/api/answers', answers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

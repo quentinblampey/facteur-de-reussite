@@ -10,11 +10,11 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 
 ## Commandes à lancer
 
-- npm install --save express body-parser morgan body-parser serve-favicon
-- npm install --save mongoose bluebird
-- npm install --save react-router-dom
-- npm install --save-dev bootstrap
-- npm install --save axios
+- `npm install --save express body-parser morgan body-parser serve-favicon`
+- `npm install --save mongoose bluebird`
+- `npm install --save react-router-dom`
+- `npm install --save-dev bootstrap`
+- `npm install --save axios`
 
 ## Lancer l'application
 
