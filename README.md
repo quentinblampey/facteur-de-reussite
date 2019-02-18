@@ -10,5 +10,5 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 
 ## Lancer l'application
 
-npm run build
-npm start
+- npm run build
+- npm start
