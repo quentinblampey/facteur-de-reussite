@@ -8,35 +8,47 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      pseudo:''
     };
   }
 
-  componentDidMount() {
-    axios.get('/api/book')
-      .then(res => {
-        this.setState({ books: res.data });
-        console.log(this.state.books);
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { pseudo } = this.state;
+
+    axios.get
+
+    axios.post('/api/users', { pseudo })
+      .then((result) => {
+        this.props.history.push("/chat");
+        console.log(this.props.history);
       });
+    
   }
 
   render() {
+    const { pseudo } = this.state;
     return (
       <div class="container">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              FACTEUR DE REUSSITE
-            </h3>
-          </div>
           <div class="panel-body">
-            <button><Link to="/chat"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Go to Chat</Link></button>
-            <p>Heyo</p>
+            FACTEUR DE REUSSITE
+            <form onSubmit={this.onSubmit}>
+              <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
+              <button type="submit" class="btn btn-default">Go to chat</button>
+            </form>
           </div>
         </div>
       </div>
-    );
-  }
+    );}
+
 }
 
 export default App;
