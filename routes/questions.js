@@ -1,45 +1,45 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Book = require('../models/Book.js');
+var Question = require('../models/Question');
 
-/* GET ALL BOOKS */
+/* GET ALL Questions */
+
 router.get('/', function(req, res, next) {
-  Book.find(function (err, products) {
+  Question.find(function (err, questions) {
     if (err) return next(err);
-    res.json(products);
+    res.json(questions);
   });
 });
 
-/* GET SINGLE BOOK BY ID */
+
+/* GET SINGLE Question BY ID */
 router.get('/:id', function(req, res, next) {
-  Book.findById(req.params.id, function (err, post) {
+  Question.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* SAVE BOOK */
+/* SAVE Question */
 router.post('/', function(req, res, next) {
-  console.log("post" + req.body)
-  
-  Book.create(req.body, function (err, post) {
+  Question.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* UPDATE BOOK */
+/* UPDATE Question */
 router.put('/:id', function(req, res, next) {
-  Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Question.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* DELETE BOOK */
+/* DELETE Question */
 router.delete('/:id', function(req, res, next) {
-  Book.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Question.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
