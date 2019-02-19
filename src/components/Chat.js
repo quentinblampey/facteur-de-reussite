@@ -22,7 +22,7 @@ class Chat extends Component {
       .then(res => {
         console.log('user', res.data);
         this.setState({ chat:this.state.chat.concat(['Bienvenue '+res.data.pseudo]), user:res.data });
-        axios.get(`/api/questions/${res.data.currentBreak[0].idQ}`)
+        axios.post(`/api/questions/${res.data.currentBreak[0].idQ}`, {details:this.state.user.details})
           .then(r => {
             console.log(r);
             this.setState({chat:this.state.chat.concat([r.data.body]), currentQuestion:r.data.body, answers:r.data.answers});
@@ -42,8 +42,13 @@ class Chat extends Component {
 
     this.state.chat.push(answer.body);
 
+    axios.put(`api/users/${user._id}`, {answer:answer, field:currentQuestion.field})
+      .then(res => {
+        this.setState({user:res});
+      });
+
     this.setState({newMessage:''});
-    axios.get(`/api/questions/${answer.idQ}`)
+    axios.get(`/api/questions/${answer.idQ}`, {details:user.details})
       .then(res => {
         this.state.chat.push(res.data.body);
         this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data.body, answers:res.data.answers})
