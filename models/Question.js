@@ -8,7 +8,8 @@ var QuestionSchema = new mongoose.Schema({
   personalized : Boolean,
   persoBody : [String],
   answers : [answer],
-  field : String
+  field : String,
+  type: String
 });
 
 
