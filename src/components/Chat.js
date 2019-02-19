@@ -48,7 +48,7 @@ class Chat extends Component {
       });
 
     this.setState({newMessage:''});
-    axios.get(`/api/questions/${answer.idQ}`, {details:user.details})
+    axios.post(`/api/questions/${answer.idQ}`, {details:user.details})
       .then(res => {
         this.state.chat.push(res.data.body);
         this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data.body, answers:res.data.answers})
