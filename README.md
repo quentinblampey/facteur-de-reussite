@@ -12,14 +12,14 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 ## Commandes à lancer
 
 
-- `npm install --save express body-parser morgan body-parser serve-favicon`
-- `npm install --save mongoose bluebird`
-- `npm install --save react-router-dom`
-- `npm install --save-dev bootstrap`
-- `npm install --save axios`
-- `mongoimport --db api --collection questions --file questions.json --jsonArray`
+- `$ npm install --save express body-parser morgan body-parser serve-favicon`
+- `$ npm install --save mongoose bluebird`
+- `$ npm install --save react-router-dom`
+- `$ npm install --save-dev bootstrap`
+- `$ npm install --save axios`
+- `$ mongoimport --db api --collection questions --file questions.json --jsonArray`
 
 
 ## Lancer l'application
 
-- `nodemon facteur-de-reussite`
+- `$ nodemon facteur-de-reussite`
