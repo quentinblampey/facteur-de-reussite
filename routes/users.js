@@ -32,21 +32,18 @@ router.get('/initget/', function(req, res, next) {
   });
 });
 
-
-
-/* GET ALL UserS */
-
-router.get('/', function(req, res, next) {
-  User.find(function (err, users) {
+/*  GET USER BY ID*/
+router.get('/getid/:id', function(req, res, next) {
+  User.findById(req.params.id, function (err, users) {
     if (err) {return next(err)};
     res.json(users);
   });
 });
 
+/* GET ALL UserS */
 
-/*  GET USER BY ID*/
-router.get('/:_id', function(req, res, next) {
-  User.findById(req.params._id, function (err, users) {
+router.get('/', function(req, res, next) {
+  User.find(function (err, users) {
     if (err) {return next(err)};
     res.json(users);
   });
@@ -61,12 +58,13 @@ router.put('/:id', function(req, res, next) {
   });
 });
 
-/* DELETE User */
+
+/* DELETE User NOT NECESSARY
 router.delete('/:id', function(req, res, next) {
   User.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
-});
+});*/
 
 module.exports = router;
