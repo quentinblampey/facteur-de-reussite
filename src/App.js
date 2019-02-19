@@ -14,13 +14,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(typeof this.state.pseudos);
     axios.get('/api/users/')
       .then(res => {
-        console.log(res);
-        console.log(res.data);
         this.setState({ pseudo:'', pseudos: res.data });
-        console.log(this.state.pseudos);
       });
   }
 
@@ -36,7 +32,7 @@ class App extends Component {
     const { pseudo, pseudos} = this.state;
 
     {pseudo != "" &&
-    axios.post(`/api/users/initget`, {pseudo:pseudo})
+    axios.post('/api/users/initget', {pseudo:pseudo})
       .then((result) => {
         this.props.history.push(`/chat/${result.data._id}`);
         console.log(this.props.history);

@@ -15,15 +15,14 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    var idQ;
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => {
-        this.setState({ chat:['Bienvenue '+res.data.pseudo], user:res.data });
-        idQ = res.data.currentBreak.idQ;
-      });
-    axios.get('/api/questions/nextQuestion', {idQ:idQ})
-      .then(res => {
-        this.setState.chat.push(res.data.body);
+        this.setState({ chat:this.state.chat.concat(['Bienvenue '+res.data.pseudo]), user:res.data });
+        axios.get(`/api/questions/${res.data.currentBreak[0].idQ}`)
+          .then(r => {
+            console.log(r.data.body);
+            this.setState({chat:this.state.chat.concat([r.data.body])});
+        });
       });
   }
 
@@ -53,6 +52,7 @@ class Chat extends Component {
 
   render() {
     const { chat, user, newMessage } = this.state;
+    console.log(chat);
     return (
       <div>
         {chat.map((m) =>
