@@ -5,7 +5,7 @@ var UserSchema = new mongoose.Schema({
   pseudo: String,
   currentBreak : [BreakRegistration],
   nextBreak : [BreakRegistration],
-  details: {sport: String},
+  details: {sport: String, name:String},
 });
 
 module.exports = mongoose.model('User', UserSchema);
