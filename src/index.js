@@ -11,7 +11,7 @@ ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
-        <Route path='/chat' component={Chat} />
+        <Route path='/chat/:id' component={Chat} />
       </div>
   </Router>,
   document.getElementById('root')

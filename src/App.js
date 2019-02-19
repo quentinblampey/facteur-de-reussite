@@ -15,7 +15,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log(typeof this.state.pseudos);
-    axios.get('/api/users')
+    axios.get('/api/users/')
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -36,9 +36,9 @@ class App extends Component {
     const { pseudo, pseudos} = this.state;
 
     {pseudo != "" &&
-    axios.post('/api/users', { pseudo: pseudo })
+    axios.post(`/api/users/initget`, {pseudo:pseudo})
       .then((result) => {
-        this.props.history.push("/chat");
+        this.props.history.push(`/chat/${result.data._id}`);
         console.log(this.props.history);
         console.log(result);
       });
@@ -57,21 +57,12 @@ class App extends Component {
               <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
               <button type="submit" class="btn btn-default">Go to chat</button>
             </form>
-            <table class="table table-stripe">
-              <thead>
-                <tr>
-                  <th>Pseudo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {console.log(typeof pseudos)}
-                {pseudos.map((p) =>
-                  <tr>
-                    <td>{p.pseudo}</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+            <h2>Pseudos</h2>
+                  <ul>
+                    {pseudos.map((p) =>
+                      <li><Link to={`/chat/${p._id}`}>{p.pseudo}</Link></li>
+                    )}
+                  </ul>
           </div>
         </div>
       </div>
