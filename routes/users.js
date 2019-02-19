@@ -7,14 +7,35 @@ var User = require('../models/User.js');
 
 router.get('/', function(req, res, next) {
   User.find(function (err, users) {
-    if (err) return next(err);
+    if (err) {return next(err)};
     res.json(users);
   });
 });
 
 
 /* GET SINGLE User BY ID */
-router.get('/:id', function(req, res, next) {
+router.get('/:pseudo', function(req, res, next) {
+  User.findById(req.params.pseudo, function (err, post) {
+    if (err) { firstTrees = [
+      {
+        "idQ" : 1,
+        "personalization": []
+      },
+      { 
+        "idQ" : 2,
+        "personalization" : []
+      }
+    ]
+    User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {sport: ""}}, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });};
+    res.json(post);
+  });
+});
+
+/* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
+router.get('/initget/:id', function(req, res, next) {
   User.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -33,7 +54,7 @@ router.post('/', function(req, res, next) {
       "personalization" : []
     }
   ]
-  User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: []}, function (err, post) {
+  User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {sport: ""}}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

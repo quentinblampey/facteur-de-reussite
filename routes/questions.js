@@ -14,8 +14,8 @@ router.get('/', function(req, res, next) {
 
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
-router.get('/nextQuestion/', function(req, res, next) {
-  Question.findById(req.body.idQ, function (err, post) {
+router.get('/:idQ', function(req, res, next) {
+  Question.findById(req.params.idQ, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
