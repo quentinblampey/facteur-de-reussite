@@ -17,11 +17,11 @@ const newLocal = QuestionSchema.methods.contructor = function () {
   }
 };*/
  
-QuestionSchema.methods.constructor = function(details) {
+/*QuestionSchema.methods.constructor = function(details) {
   switch (this.idQ) {
     case 2:
       this.body = this.persoBody[0] + " " + details.name + " " + this.persoBody[0];
   }
-}
+}*/
  
 module.exports = mongoose.model('Question', QuestionSchema);
