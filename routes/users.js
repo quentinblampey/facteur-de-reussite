@@ -44,23 +44,14 @@ router.get('/', function(req, res, next) {
 });
 
 
-/* SAVES  A NEW User WITH ONLY A NAME SPECIFIED */
-router.post('/', function(req, res, next) {
-  firstTrees = [
-    {
-      "idQ" : 1,
-      "personalization": []
-    },
-    { 
-      "idQ" : 2,
-      "personalization" : []
-    }
-  ]
-  User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {sport: ""}}, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
+/*  GET USER BY ID*/
+router.get('/:_id', function(req, res, next) {
+  User.findById(req.params._id, function (err, users) {
+    if (err) {return next(err)};
+    res.json(users);
   });
 });
+
 
 /* UPDATE User */
 router.put('/:id', function(req, res, next) {
