@@ -16,6 +16,15 @@ mongoose.connect('mongodb://localhost/api', { useNewUrlParser: true, promiseLibr
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
+  //Clearance for the front client
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
