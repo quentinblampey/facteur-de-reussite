@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Question = require('../models/Question');
+var Question = require('../models/Question').model;
+var constructor = require('../models/Question').constructor;
 
 /* GET ALL Questions */
 
@@ -17,6 +18,9 @@ router.get('/', function(req, res, next) {
 router.get('/:idQ', function(req, res, next) {
   Question.findById(req.params.idQ, function (err, post) {
     if (err) return next(err);
+    if (post.personalized) {
+      post = constructor(post,req.body.details)
+    }
     res.json(post);
   });
 });
