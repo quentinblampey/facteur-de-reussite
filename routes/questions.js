@@ -15,12 +15,12 @@ router.get('/', function(req, res, next) {
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
 router.get('/:idQ', function(req, res, next) {
-  Question.findById(req.params.idQ, function (err, post) {
+  Question.findOne({idQ: req.params.idQ}, function (err, post) {
     if (err) return next(err);
-    if (post.personalized) {
+    /*if (post.personalized) {
       post.constructor(req.body.details) 
       //= constructor(post,req.body.details)
-    }
+    }*/
     res.json(post);
   });
 });
