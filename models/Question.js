@@ -9,4 +9,11 @@ var QuestionSchema = new mongoose.Schema({
   answers : [answer],
 });
 
+/*
+const newLocal = QuestionSchema.methods.contructor = function () {
+  if (personalization) {
+    var a = personalization.size;
+  }
+};*/
+
 module.exports = mongoose.model('Question', QuestionSchema);

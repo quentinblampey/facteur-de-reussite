@@ -7,8 +7,10 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 - Node  V10.15.1
 - NPM V6.4.1
 - React V16.8.2
+- Nodemon V1.18.10
 
 ## Commandes à lancer
+
 
 - `npm install --save express body-parser morgan body-parser serve-favicon`
 - `npm install --save mongoose bluebird`
@@ -17,7 +19,7 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 - `npm install --save axios`
 - `mongoimport --db api --collection questions --file questions.json --jsonArray`
 
+
 ## Lancer l'application
 
-- npm run build
-- npm start
+- `nodemon facteur-de-reussite`
