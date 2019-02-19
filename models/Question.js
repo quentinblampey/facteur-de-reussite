@@ -24,6 +24,6 @@ var constructor = function(question,details) {
   }
   return question
 }
-
+ 
 module.exports =  { "model" : mongoose.model('Question', QuestionSchema),
                     "constructor" : constructor};
