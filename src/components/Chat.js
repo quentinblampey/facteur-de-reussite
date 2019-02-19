@@ -10,18 +10,22 @@ class Chat extends Component {
     this.state = {
       chat:[],
       user:'', 
-      newMessage:''
+      newMessage:'',
+      currentQuestion:'',
+      answers:[]
     };
   }
 
   componentDidMount() {
-    axios.get(`/api/users/${this.props.match.params.id}`)
+    console.log('meh');
+    axios.get(`/api/users/getid/${this.props.match.params.id}`)
       .then(res => {
+        console.log('user', res.data);
         this.setState({ chat:this.state.chat.concat(['Bienvenue '+res.data.pseudo]), user:res.data });
         axios.get(`/api/questions/${res.data.currentBreak[0].idQ}`)
           .then(r => {
-            console.log(r.data.body);
-            this.setState({chat:this.state.chat.concat([r.data.body])});
+            console.log(r);
+            this.setState({chat:this.state.chat.concat([r.data.body]), currentQuestion:r.data.body, answers:r.data.answers});
         });
       });
   }
@@ -32,10 +36,23 @@ class Chat extends Component {
     this.setState(state);
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  onSubmitButton = (answer, e) => {
 
-    const { chat, user, newMessage } = this.state;
+    const { chat, user, newMessage , currentQuestion, answers} = this.state;
+
+    this.state.chat.push(answer.body);
+
+    this.setState({newMessage:''});
+    axios.get(`/api/questions/${answer.idQ}`)
+      .then(res => {
+        this.state.chat.push(res.data.body);
+        this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data.body, answers:res.data.answers})
+      });
+  }
+
+  onSubmit = (e) => {
+
+    const { chat, user, newMessage , currentQuestion, answers} = this.state;
 
     this.state.chat.push(newMessage);
 
@@ -44,19 +61,23 @@ class Chat extends Component {
 
     this.setState({newMessage:''});
 
-    axios.get(`/api/users/${this.props.match.params.id}`)
+    axios.get(`/api/questions/${this.answer.idQ}`)
       .then(res => {
-        this.state.chat.push(res.data.body)
+        this.state.chat.push(res.data.body);
+        this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data, answers:res.data.answers})
       });
   }
 
   render() {
-    const { chat, user, newMessage } = this.state;
+    const { chat, user, newMessage, currentQuestion, answers} = this.state;
     console.log(chat);
     return (
       <div>
         {chat.map((m) =>
           <p>{m}</p>
+        )}
+        {answers.map((a) =>
+          <button onClick={this.onSubmitButton.bind(this, a)}>{a.body}</button>
         )}
         <form onSubmit={this.onSubmit}>
           <input type="text" class="form-control" name="newMessage" value={newMessage} onChange={this.onChange} placeholder="..." />
