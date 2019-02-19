@@ -6,7 +6,7 @@ var User = require('../models/User.js');
 
 
 /* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
-router.post('/initget/', function(req, res, next) {
+router.post('/initget', function(req, res, next) {
   User.findOne({pseudo : req.body.pseudo}, function (err, post) {
     if (err) { return next(err) };
     if (post === null) {
