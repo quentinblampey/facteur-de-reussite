@@ -14,12 +14,7 @@ router.post('/initget', function(req, res, next) {
 
       firstTrees = [
         {
-          "idQ" : 1,
-          "personalization": []
-        },
-        { 
-          "idQ" : 2,
-          "personalization" : []
+          "idQ" : 1
         }
       ]
       User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
@@ -54,6 +49,8 @@ router.get('/', function(req, res, next) {
 router.put('/:id', function(req, res, next) {
   User.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
+    field = req.body.field;
+    post.details[field] = req.body.answer.detail;
     res.json(post);
   });
 });

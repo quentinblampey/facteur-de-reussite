@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Question = require('../models/Question');
+var construct = require('../models/Question.construct');
 
 /* GET ALL Questions */
 
@@ -17,10 +18,10 @@ router.get('/', function(req, res, next) {
 router.get('/:idQ', function(req, res, next) {
   Question.findOne({idQ: req.params.idQ}, function (err, post) {
     if (err) return next(err);
-    /*if (post.personalized) {
-      post.constructor(req.body.details) 
-      //= constructor(post,req.body.details)
-    }*/
+    if (post.personalized) {
+      // post.construct(req.body.details) 
+      post = construct(post,req.body.details)
+    }
     res.json(post);
   });
 });
