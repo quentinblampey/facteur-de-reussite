@@ -51,6 +51,7 @@ router.put('/:id', function(req, res, next) {
     if (err) return next(err);
     field = req.body.field;
     post.details[field] = req.body.answer.detail;
+    post.save();
     res.json(post);
   });
 });

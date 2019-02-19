@@ -15,6 +15,8 @@ router.get('/', function(req, res, next) {
 
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
+
+/*
 router.get('/:idQ', function(req, res, next) {
   Question.findOne({idQ: req.params.idQ}, function (err, post) {
     if (err) return next(err);
@@ -25,6 +27,19 @@ router.get('/:idQ', function(req, res, next) {
     res.json(post);
   });
 });
+*/
+
+router.post('/:idQ', function(req, res, next) {
+  Question.findOne({idQ: req.params.idQ}, function (err, post) {
+    if (err) return next(err);
+    if (post.personalized) {
+      // post.construct(req.body.details) 
+      post = construct(post,req.body.details)
+    }
+    res.json(post);
+  });
+});
+
 
 /* SAVE Question */
 router.post('/', function(req, res, next) {
