@@ -16,7 +16,7 @@ const newLocal = QuestionSchema.methods.contructor = function () {
     var a = personalization.size;
   }
 };*/
-
+ 
 var constructor = function(question,details) {
   switch (question.idQ) {
     case 2:
