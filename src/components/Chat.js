@@ -42,7 +42,7 @@ class Chat extends Component {
 
     this.state.chat.push(answer.body);
 
-    axios.put(`api/users/${user._id}`, {answer:answer, field:currentQuestion.field})
+    axios.put(`/api/users/${user._id}`, {answer:answer, field:currentQuestion.field})
       .then(res => {
         this.setState({user:res});
       });
