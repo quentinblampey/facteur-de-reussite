@@ -3,6 +3,37 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/User.js');
 
+
+
+/* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
+router.get('/initget/', function(req, res, next) {
+  User.findOne({pseudo : req.body.pseudo}, function (err, post) {
+    if (err) { return next(err) };
+    if (post === null) {
+      console.log("create !")
+
+      firstTrees = [
+        {
+          "idQ" : 1,
+          "personalization": []
+        },
+        { 
+          "idQ" : 2,
+          "personalization" : []
+        }
+      ]
+      User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
+        if (err) return next(err);
+        console.log("Created !")
+        res.json(post);
+      });
+    } else {
+    res.json(post);}
+  });
+});
+
+
+
 /* GET ALL UserS */
 
 router.get('/', function(req, res, next) {
@@ -12,35 +43,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
-/* GET SINGLE User BY ID */
-router.get('/:pseudo', function(req, res, next) {
-  User.findById(req.params.pseudo, function (err, post) {
-    if (err) { firstTrees = [
-      {
-        "idQ" : 1,
-        "personalization": []
-      },
-      { 
-        "idQ" : 2,
-        "personalization" : []
-      }
-    ]
-    User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {sport: ""}}, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });};
-    res.json(post);
-  });
-});
-
-/* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
-router.get('/initget/:id', function(req, res, next) {
-  User.findById(req.params.id, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
 
 /* SAVES  A NEW User WITH ONLY A NAME SPECIFIED */
 router.post('/', function(req, res, next) {
