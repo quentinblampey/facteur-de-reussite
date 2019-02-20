@@ -4,22 +4,23 @@ import { Link } from 'react-router-dom';
 
 class Begin extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      id: props.match.params.id,
       user:''
     };
   }
 
   componentDidMount() {
-    axios.get(`/api/users/getid/${this.props.match.params.id}`)
+
+    axios.get(`/api/users/getid/${this.state.id}`)
       .then(res => {
         console.log('user', res.data);
         this.setState({  user:res.data });
       });
+
   }
-
-
 
 
 
