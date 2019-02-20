@@ -32,11 +32,13 @@ class Chat extends Component {
   onSubmitButton = (answer, e) => {
     this.state.chat.push(answer.body);
     this.state.chat.push(answer.reaction);
+    console.log('heyo');
     axios.post(`/api/answers/${this.state.user._id}`, {answer:answer, field:this.state.currentQuestion.field})
       .then(res => {
+        console.log(res);
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
-            console.log('c', res2);
+            console.log(res2);
             this.setState({user:res2.data.user, chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question})
           });
       });
@@ -48,9 +50,11 @@ class Chat extends Component {
     ans=this.state.currentQuestion.answers[0];
     ans.body=this.state.newMessage;
     ans.detail=this.state.newMessage;
-    axios.post(`/api/answers/`, {answer:ans})
+    console.log('heyo');
+    axios.post(`/api/answers/${this.state.user._id}`, {answer:ans, field:this.state.currentQuestion.field})
       .then(res => {
-        axios.get(`/api/questions/${this.state.user._id}`)
+        console.log(res);
+        axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
             this.state.chat.push(res2.data.body);
             this.setState({chat:this.state.chat.concat([res2.data.body]), currentQuestion:res2.data})
