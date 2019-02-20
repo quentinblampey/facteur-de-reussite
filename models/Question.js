@@ -9,7 +9,7 @@ var QuestionSchema = new mongoose.Schema({
   persoBody : [String],
   answers : [answer],
   field : String,
-  type: String
+  textArea: Boolean
 });
 
 
