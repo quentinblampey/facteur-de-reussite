@@ -38,6 +38,7 @@ class Chat extends Component {
         console.log(res);
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
+            if (res2.body.isFinish){this.props.history.push(`/`);};
             console.log(res2);
             this.setState({user:res2.data.user, chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question})
           });
@@ -50,14 +51,13 @@ class Chat extends Component {
     ans=this.state.currentQuestion.answers[0];
     ans.body=this.state.newMessage;
     ans.detail=this.state.newMessage;
-    console.log('heyo');
     axios.post(`/api/answers/${this.state.user._id}`, {answer:ans, field:this.state.currentQuestion.field})
       .then(res => {
-        console.log(res);
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
-            this.state.chat.push(res2.data.body);
-            this.setState({chat:this.state.chat.concat([res2.data.body]), currentQuestion:res2.data})
+            if (res2.body.isFinish){console.log('t');this.props.history.push(`/`);};
+            this.state.chat.push(res2.data.question.body);
+            this.setState({chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question});
           });
       });
   }
