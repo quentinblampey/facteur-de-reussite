@@ -43,7 +43,7 @@ router.post('/:idQ', function(req, res, next) {
 
 /* SAVE Question */
 router.post('/', function(req, res, next) {
-  user = req.body.user;
+  user = req.body;
   if (user.currentBreak.length()==0) {
     user.currentBreak = user.nextBreak;
     user.nextBreak = [];
