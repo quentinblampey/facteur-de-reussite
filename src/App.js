@@ -42,6 +42,8 @@ class App extends Component {
     
   }
 
+
+
   render() {
     const { pseudo, pseudos} = this.state;
     return (

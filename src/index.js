@@ -8,6 +8,7 @@ import serviceWorker from './serviceWorker.js';
 import App from './App';
 import Chat from './components/Chat';
 import Begin from './components/Begin';
+import Exit from './components/Exit'
 //import { PromiseProvider } from 'mongoose';
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Route exact path='/' component={App} />
         <Route path='/chat/:id' component={Chat} />
         <Route path='/begin/:id' render={(props) => <Begin {...props} />} />
+        <Route path='/exit' component={Exit} />
       </div>
   </Router>,
   document.getElementById('root')
