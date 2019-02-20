@@ -53,10 +53,10 @@ class VueEnseignant extends Component {
               <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
               <button type="submit" class="btn btn-success">Me connecter</button>
             </form>
-            <h2>Pseudos</h2>
+            <h2>Etudiants inscrits : </h2>
                   <ul>
                     {pseudos.map((p) =>
-                      <li><Link to={`/begin/${p._id}`}>{p.pseudo}</Link></li>
+                      <li>{p.pseudo}</li>
                     )}
                   </ul>
           </div>
