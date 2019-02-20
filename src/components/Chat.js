@@ -16,14 +16,11 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/users/getid/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({ chat:this.state.chat.concat(['Bienvenue '+res.data.pseudo]), user:res.data });
-        axios.post(`/api/questions/${res.data.currentBreak[0].idQ}`, {details:this.state.user.details})
-          .then(r => {
-            this.setState({chat:this.state.chat.concat([r.data.body]), currentQuestion:r.data});
-        });
+      axios.post(`/api/questions/${this.props.match.params.id}`)
+        .then(r => {
+          this.setState({user:r.data.user, chat:this.state.chat.concat([r.data.question.body]), currentQuestion:r.data.question});
       });
+
   }
 
   onChange = (e) => {
@@ -33,60 +30,57 @@ class Chat extends Component {
   }
 
   onSubmitButton = (answer, e) => {
-    const { chat, user, newMessage , currentQuestion} = this.state;
-
     this.state.chat.push(answer.body);
-    axios.put(`/api/users/${user._id}`, {answer:answer, field:currentQuestion.field})
+    this.state.chat.push(answer.reaction);
+    axios.post(`/api/answers/${this.state.user._id}`, {answer:answer, field:this.state.currentQuestion.field})
       .then(res => {
-        this.setState({user:res});
-      });
-
-    this.setState({newMessage:''});
-    axios.post(`/api/questions/${answer.idQ}`, {details:user.details})
-      .then(res => {
-        this.state.chat.push(res.data.body);
-        this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data})
+        axios.post(`/api/questions/${this.state.user._id}`)
+          .then(res2 => {
+            console.log('c', res2);
+            this.setState({user:res2.data.user, chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question})
+          });
       });
   }
 
   onSubmit = (e) => {
-    /*
-    const { chat, user, newMessage , currentQuestion} = this.state;
-
-    this.state.chat.push(newMessage);
-
-    axios.post(`/api/answers/`, {newMessage})
-      .then(res => {});
-
-    this.setState({newMessage:''});
-
-    axios.get(`/api/questions/${this.answer.idQ}`)
+    this.setState({chat:this.state.chat.concat(this.state.newMessage), newMessage:''})
+    let ans;
+    ans=this.state.currentQuestion.answers[0];
+    ans.body=this.state.newMessage;
+    ans.detail=this.state.newMessage;
+    axios.post(`/api/answers/`, {answer:ans})
       .then(res => {
-        this.state.chat.push(res.data.body);
-        this.setState({chat:this.state.chat.concat([res.data.body]), currentQuestion:res.data})
+        axios.get(`/api/questions/${this.state.user._id}`)
+          .then(res2 => {
+            this.state.chat.push(res2.data.body);
+            this.setState({chat:this.state.chat.concat([res2.data.body]), currentQuestion:res2.data})
+          });
       });
-
-    */
   }
-
   render() {
     const { chat, user, newMessage, currentQuestion} = this.state;
+    let userAnswer;
+    if (typeof currentQuestion.answers != 'undefined' & !currentQuestion.textArea ){
+      userAnswer = (
+        currentQuestion.answers.map((a) =>
+          <button onClick={this.onSubmitButton.bind(this, a)}>{a.body}</button>
+        )
+      )
+    }
+    else{
+      userAnswer = (
+        <form onSubmit={this.onSubmit}>
+          <input type="text" class="form-control" name="newMessage" value={newMessage} onChange={this.onChange} placeholder="..." />
+          <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+      )
+    }
     return (
       <div>
         {chat.map((m) =>
           <p>{m}</p>
         )}
-        {currentQuestion.answers != [] &&
-          currentQuestion.answers.map((a) =>
-          <button onClick={this.onSubmitButton.bind(this, a)}>{a.body}</button>
-        )}
-        {currentQuestion.answers === [] &&
-        <form onSubmit={this.onSubmit}>
-          <input type="text" class="form-control" name="newMessage" value={newMessage} onChange={this.onChange} placeholder="..." />
-          <button type="submit" class="btn btn-default">Envoyer</button>
-        </form>
-         }
-        
+        {userAnswer}
       </div>
     );
   }
