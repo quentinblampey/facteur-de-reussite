@@ -28,5 +28,3 @@ class FooterStop extends Component {
 export default FooterStop;
 
 
-
-/**/
