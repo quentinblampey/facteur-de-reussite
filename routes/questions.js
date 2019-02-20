@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Question = require('../models/Question');
+var User = require('../models/User.js');
 var construct = require('../models/Question.construct');
 
 /* GET ALL Questions */
@@ -29,6 +30,7 @@ router.get('/:idQ', function(req, res, next) {
 });
 */
 
+/*
 router.post('/:idQ', function(req, res, next) {
   Question.findOne({idQ: req.params.idQ}, function (err, post) {
     if (err) return next(err);
@@ -39,13 +41,29 @@ router.post('/:idQ', function(req, res, next) {
     res.json(post);
   });
 });
+*/
 
-
-/* SAVE Question */
-router.post('/', function(req, res, next) {
-  Question.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
+/* Find Question */
+router.post('/:id', function(req, res, next) {
+  User.findById(req.params.id, function (err, user) {
+    if (err) {return next(err)};
+    if (user.currentBreak.length==0) {
+      user.currentBreak = user.nextBreak;
+      user.nextBreak = [];
+      user.save();
+      res.json({ question : {}, isFinish : true, user : user })
+    }
+    else {
+      idQ = user.currentBreak.pop();
+      user.save();
+      Question.findOne({idQ: idQ}, function (err, post) {
+        if (err) return next(err);
+        if (post.personalized) {
+          post = construct(post,user.details)
+        }
+        res.json({ question : post, isFinish : false, user : user});
+      });
+    }
   });
 });
 
