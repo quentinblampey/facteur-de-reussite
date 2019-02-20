@@ -6,12 +6,14 @@ import './style.css';
 import './index.css';
 import App from './App';
 import Chat from './components/Chat';
+import Begin from './components/Begin';
 
 ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
         <Route path='/chat/:id' component={Chat} />
+        <Route path='/begin/:id' render={(props) => <Begin {...props}/>} />
       </div>
   </Router>,
   document.getElementById('root')

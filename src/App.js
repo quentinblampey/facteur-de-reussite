@@ -34,7 +34,7 @@ class App extends Component {
     {pseudo != "" &&
     axios.post('/api/users/initget', {pseudo:pseudo})
       .then((result) => {
-        this.props.history.push(`/chat/${result.data._id}`);
+        this.props.history.push(`/begin/${result.data._id}`);
         console.log(this.props.history);
         console.log(result);
       });
@@ -51,12 +51,12 @@ class App extends Component {
             FACTEUR DE REUSSITE
             <form onSubmit={this.onSubmit}>
               <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
-              <button type="submit" class="btn btn-default">Go to chat</button>
+              <button type="submit" class="btn btn-success">Me connecter</button>
             </form>
             <h2>Pseudos</h2>
                   <ul>
                     {pseudos.map((p) =>
-                      <li><Link to={`/chat/${p._id}`}>{p.pseudo}</Link></li>
+                      <li><Link to={`/begin/${p._id}`}>{p.pseudo}</Link></li>
                     )}
                   </ul>
           </div>
