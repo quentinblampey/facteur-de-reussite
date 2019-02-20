@@ -43,10 +43,24 @@ router.post('/:idQ', function(req, res, next) {
 
 /* SAVE Question */
 router.post('/', function(req, res, next) {
-  Question.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  user = req.body.user;
+  if (user.currentBreak.length()==0) {
+    user.currentBreak = user.nextBreak;
+    user.nextBreak = [];
+    user.save();
+    res.json({ question : {}, isFinish : true, user : user })
+  }
+  else {
+    idQ = user.currentBreak.pop();
+    user.save();
+    Question.findOne({idQ: idQ}, function (err, post) {
+      if (err) return next(err);
+      if (post.personalized) {
+        post = construct(post,user.details)
+      }
+      res.json({ question : post, isFinish : false, user : user});
+    });
+  }
 });
 
 /* UPDATE Question */

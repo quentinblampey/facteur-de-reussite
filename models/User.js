@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
-var BreakRegistration = require('./BreakRegistration')
 
 var UserSchema = new mongoose.Schema({
   pseudo: String,
-  currentBreak : [BreakRegistration],
-  nextBreak : [BreakRegistration],
+  currentBreak : [Number],
+  nextBreak : [Number],
   details: {sport: String, name:String},
 });
 
