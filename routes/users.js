@@ -12,7 +12,7 @@ router.post('/initget', function(req, res, next) {
     if (post === null) {
       console.log("create !")
 
-      firstTrees = [ 1 ];
+      firstTrees = [ 4, 1 ];
       User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
         if (err) return next(err);
         console.log("Created !")

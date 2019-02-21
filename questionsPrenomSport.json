@@ -27,14 +27,14 @@
                 "body" : "Non...",
                 "reaction" : "Ah mince désolé",
                 "breakPoint" : false,
-                "detail" : "non"
+                "detail" : ""
             },
             {
                 "idQ" : 0,
                 "body" : "Oui c'est ça !",
                 "reaction" : "Ok super !",
                 "breakPoint" : false,
-                "detail" : "oui"
+                "detail" : ""
             }
         ],
         "field" : "",

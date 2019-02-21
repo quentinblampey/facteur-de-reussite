@@ -30,17 +30,15 @@ class Chat extends Component {
   }
 
   onSubmitButton = (answer, e) => {
-    this.state.chat.push(answer.body);
-    this.state.chat.push(answer.reaction);
-    console.log('heyo');
+    this.setState({chat:this.state.chat.concat(answer.body, answer.reaction)})
     axios.post(`/api/answers/${this.state.user._id}`, {answer:answer, field:this.state.currentQuestion.field})
       .then(res => {
-        console.log(res);
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
-            if (res2.body.isFinish){this.props.history.push(`/`);};
-            console.log(res2);
-            this.setState({user:res2.data.user, chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question})
+            if (res2.data.isFinish){this.props.history.push(`/begin/${this.props.match.params.id}`);}
+            else{
+              this.setState({user:res2.data.user, chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question})
+            }
           });
       });
   }
@@ -55,11 +53,13 @@ class Chat extends Component {
       .then(res => {
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
-            if (res2.body.isFinish){console.log('t');this.props.history.push(`/`);};
-            this.state.chat.push(res2.data.question.body);
-            this.setState({chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question});
+            if (res2.data.isFinish){console.log('t');this.props.history.push(`/`);}
+            else{
+              this.setState({chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question});
+            }
           });
       });
+      
   }
   render() {
     const { chat, user, newMessage, currentQuestion} = this.state;
@@ -73,10 +73,10 @@ class Chat extends Component {
     }
     else{
       userAnswer = (
-        <form onSubmit={this.onSubmit}>
-          <input type="text" class="form-control" name="newMessage" value={newMessage} onChange={this.onChange} placeholder="..." />
-          <button type="submit" class="btn btn-default">Envoyer</button>
-        </form>
+        <div>
+          <input type="text" class="form-control" name="newMessage" value={this.state.newMessage} onChange={this.onChange} placeholder="..." />
+          <button type="submit" onClick={this.onSubmit.bind(this)} class="btn btn-default">Envoyer</button>
+        </div>
       )
     }
     return (
