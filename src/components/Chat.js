@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 class Chat extends Component {
 
@@ -20,7 +18,6 @@ class Chat extends Component {
         .then(r => {
           this.setState({user:r.data.user, chat:this.state.chat.concat([r.data.question.body]), currentQuestion:r.data.question});
       });
-
   }
 
   onChange = (e) => {
@@ -29,8 +26,16 @@ class Chat extends Component {
     this.setState(state);
   }
 
-  onSubmitButton = (answer, e) => {
-    this.setState({chat:this.state.chat.concat(answer.body, answer.reaction)})
+  buildAnswer = () => {
+    let ans;
+    ans=this.state.currentQuestion.answers[0];
+    ans.body=this.state.newMessage;
+    ans.detail=this.state.newMessage;
+    return ans
+  }
+
+  onSubmit = (answer, e) => {
+    this.setState({chat:this.state.chat.concat(answer.body, answer.reaction), newMessage:''})
     axios.post(`/api/answers/${this.state.user._id}`, {answer:answer, field:this.state.currentQuestion.field})
       .then(res => {
         axios.post(`/api/questions/${this.state.user._id}`)
@@ -43,31 +48,12 @@ class Chat extends Component {
       });
   }
 
-  onSubmit = (e) => {
-    this.setState({chat:this.state.chat.concat(this.state.newMessage), newMessage:''})
-    let ans;
-    ans=this.state.currentQuestion.answers[0];
-    ans.body=this.state.newMessage;
-    ans.detail=this.state.newMessage;
-    axios.post(`/api/answers/${this.state.user._id}`, {answer:ans, field:this.state.currentQuestion.field})
-      .then(res => {
-        axios.post(`/api/questions/${this.state.user._id}`)
-          .then(res2 => {
-            if (res2.data.isFinish){console.log('t');this.props.history.push(`/`);}
-            else{
-              this.setState({chat:this.state.chat.concat([res2.data.question.body]), currentQuestion:res2.data.question});
-            }
-          });
-      });
-      
-  }
   render() {
-    const { chat, user, newMessage, currentQuestion} = this.state;
     let userAnswer;
-    if (typeof currentQuestion.answers != 'undefined' & !currentQuestion.textArea ){
+    if (typeof this.state.currentQuestion.answers != 'undefined' & !this.state.currentQuestion.textArea ){
       userAnswer = (
-        currentQuestion.answers.map((a) =>
-          <button onClick={this.onSubmitButton.bind(this, a)}>{a.body}</button>
+        this.state.currentQuestion.answers.map((a) =>
+          <button onClick={this.onSubmit.bind(this, a)}>{a.body}</button>
         )
       )
     }
@@ -75,13 +61,13 @@ class Chat extends Component {
       userAnswer = (
         <div>
           <input type="text" class="form-control" name="newMessage" value={this.state.newMessage} onChange={this.onChange} placeholder="..." />
-          <button type="submit" onClick={this.onSubmit.bind(this)} class="btn btn-default">Envoyer</button>
+          <button type="submit" onClick={this.onSubmit.bind(this, this.buildAnswer())} class="btn btn-default">Envoyer</button>
         </div>
       )
     }
     return (
       <div>
-        {chat.map((m) =>
+        {this.state.chat.map((m) =>
           <p>{m}</p>
         )}
         {userAnswer}
