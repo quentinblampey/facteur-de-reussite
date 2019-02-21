@@ -38,7 +38,7 @@ class MessageChat extends Component {
         )
     }
     return (
-        <div>
+        <div class="message">
             {messageBox}
         </div>
     );
