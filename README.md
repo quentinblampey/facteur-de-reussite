@@ -17,7 +17,7 @@ Git de développement du prototype de projet "facteur de réussite" en collabora
 - `$ npm install --save react-router-dom`
 - `$ npm install --save-dev bootstrap`
 - `$ npm install --save axios`
-- `$ mongoimport --db api --collection questions --file questions.json --jsonArray`
+- `$ mongoimport --db api --collection questions --file questionsPrenomSport.json --jsonArray`
 
 
 ## Lancer l'application
