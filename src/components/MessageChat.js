@@ -17,7 +17,7 @@ class MessageChat extends Component {
 
   render() {
     let messageBox;
-    if (this.props.color===1) {
+    if (this.props.color===0) {
         messageBox = (
             <div>
                 <div class="text-box-blue">
