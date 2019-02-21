@@ -31,7 +31,7 @@ class VueEnseignant extends Component {
 
     const { pseudo, pseudos} = this.state;
 
-    {pseudo != "" &&
+    {pseudo !== "" &&
     axios.post('/api/users/initget', {pseudo:pseudo})
       .then((result) => {
         this.props.history.push(`/begin/${result.data._id}`);
@@ -48,17 +48,30 @@ class VueEnseignant extends Component {
       <div class="container">
         <div class="panel panel-default">
           <div class="panel-body">
-            FACTEUR DE REUSSITE
+            <h1 class="jumbotron-heading">Aide à la réussite</h1>
+            <h3>Interface Enseignant</h3>
+            
             <form onSubmit={this.onSubmit}>
               <input type="text" class="form-control" name="pseudo" value={pseudo} onChange={this.onChange} placeholder="Pseudo" />
               <button type="submit" class="btn btn-success">Me connecter</button>
             </form>
-            <h2>Etudiants inscrits : </h2>
+
+            <div class="card bg-light mb-3">
+              <div class="card-header">
+              <h4>Etudiants inscrits : </h4>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Light card title</h5>
+                <p class="card-text">
                   <ul>
                     {pseudos.map((p) =>
                       <li>{p.pseudo}</li>
                     )}
                   </ul>
+                </p>
+              </div>
+            </div>
+                  
           </div>
         </div>
       </div>
