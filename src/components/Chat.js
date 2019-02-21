@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import MessageChat from './MessageChat';
+import './Chat.css';
 
 class Chat extends Component {
 
@@ -17,7 +18,7 @@ class Chat extends Component {
   componentDidMount() {
       axios.post(`/api/questions/${this.props.match.params.id}`)
         .then(r => {
-          this.setState({user:r.data.user, chat:this.state.chat.concat([{message:r.data.question.body, color:0}]), currentQuestion:r.data.question});
+          this.setState({user:r.data.user, chat:this.state.chat.concat([{message:r.data.question.body, color:1}]), currentQuestion:r.data.question});
       });
   }
 
@@ -37,14 +38,14 @@ class Chat extends Component {
 
   onSubmit = (answer, e) => {
     console.log('ans', answer);
-    this.setState({chat:this.state.chat.concat({message:answer.body, color:1}, {message:answer.reaction, color:0}), newMessage:''})
+    this.setState({chat:this.state.chat.concat({message:answer.body, color:0}, {message:answer.reaction, color:1}), newMessage:''})
     axios.post(`/api/answers/${this.state.user._id}`, {answer:answer, field:this.state.currentQuestion.field})
       .then(res => {
         axios.post(`/api/questions/${this.state.user._id}`)
           .then(res2 => {
             if (res2.data.isFinish){this.props.history.push(`/begin/${this.props.match.params.id}`);}
             else{
-              this.setState({user:res2.data.user, chat:this.state.chat.concat([{message:res2.data.question.body, color:0}]), currentQuestion:res2.data.question})
+              this.setState({user:res2.data.user, chat:this.state.chat.concat([{message:res2.data.question.body, color:1}]), currentQuestion:res2.data.question})
             }
           });
       });
@@ -56,9 +57,11 @@ class Chat extends Component {
     c=["bot", "human"];
     if (typeof this.state.currentQuestion.answers != 'undefined' & !this.state.currentQuestion.textArea ){
       userAnswer = (
-        this.state.currentQuestion.answers.map((a) =>
-          <button onClick={this.onSubmit.bind(this, a)}>{a.body}</button>
-        )
+        <div id='choice-buttons'>
+          {this.state.currentQuestion.answers.map((a) =>
+            <button onClick={this.onSubmit.bind(this, a)} class='btn btn-outline-primary'>{a.body}</button>
+          )}
+        </div>
       )
     }
     else{
@@ -70,7 +73,7 @@ class Chat extends Component {
       )
     }
     return (
-      <div>
+      <div id='chat-content'>
         {this.state.chat.map((m) =>
           <div><MessageChat message={m.message} color = {m.color}/></div>
         )}
