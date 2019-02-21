@@ -140,7 +140,7 @@
                 "body" : "Carrément, ça me plaît trop !",
                 "reaction" : "Content que ça te plaise !",
                 "breakPoint" : true,
-                "detail" : "oui"
+                "detail" : "same"
             }
         ],
         "field" : "sportNow",

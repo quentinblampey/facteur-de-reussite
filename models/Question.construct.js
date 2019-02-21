@@ -7,13 +7,28 @@ var construct = function(question,details) {
         question.body = question.persoBody[0] + " " + details.sportBeforeComing + " " + question.persoBody[1];
         break;
       case 10:
-        question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        if (details.sportNow=="same") {
+          question.body = question.persoBody[0] + " " + details.sportBeforeComing + " " + question.persoBody[1];
+        }
+        else {
+          question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        }
         break;
       case 11:
-        question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        if (details.sportNow=="same") {
+          question.body = question.persoBody[0] + " " + details.sportBeforeComing + " " + question.persoBody[1];
+        }
+        else {
+          question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        }
         break;
       case 12:
-        question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        if (details.sportNow=="same") {
+          question.body = question.persoBody[0] + " " + details.sportBeforeComing + " " + question.persoBody[1];
+        }
+        else {
+          question.body = question.persoBody[0] + " " + details.sportNow + " " + question.persoBody[1];
+        }
         break;
     }
     return question;
