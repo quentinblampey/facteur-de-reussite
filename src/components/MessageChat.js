@@ -23,7 +23,6 @@ class MessageChat extends Component {
                 <div class="text-box-blue">
                     <p> {this.props.message} </p>
                 </div>
-                <div class="bullet-blue"></div>
             </div>
         )
     }
@@ -33,7 +32,6 @@ class MessageChat extends Component {
                 <div class="text-box-gray">
                     <p> {this.props.message} </p>
                 </div>
-                <div class="bullet-gray"></div>
             </div>
         )
     }
