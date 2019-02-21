@@ -8,6 +8,7 @@ var book = require('./routes/book');
 var users = require('./routes/users');
 var answers = require('./routes/answers');
 var questions = require('./routes/questions');
+var enseignants = require('./routes/enseignants');
 
 var app = express();
 var mongoose = require('mongoose');
@@ -34,6 +35,7 @@ app.use('/api/book', book);
 app.use('/api/users', users);
 app.use('/api/answers', answers);
 app.use('/api/questions', questions);
+app.use('/api/enseignants', enseignants);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
