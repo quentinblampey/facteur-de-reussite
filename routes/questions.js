@@ -45,11 +45,8 @@ router.post('/:idQ', function(req, res, next) {
 
 /* Find Question */
 router.post('/:id', function(req, res, next) {
-  console.log('t1');
   User.findById(req.params.id, function (err, user) {
-    console.log('t2');
     if (err) {return next(err)};
-    console.log('t3');
     if (user.currentBreak.length==0) {
       user.currentBreak = user.nextBreak;
       user.nextBreak = [];

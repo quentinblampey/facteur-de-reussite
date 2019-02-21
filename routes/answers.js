@@ -30,7 +30,7 @@ router.post('/:id', function(req, res, next) {
   User.findById(req.params.id, function (err, user) {
     if (err) {return next(err)};
     answer = req.body.answer;
-    if (answer.detail) {
+    if (req.body.field) {
       user.details[req.body.field] = answer.detail;
     }
     if (answer.idQ != 0) {
