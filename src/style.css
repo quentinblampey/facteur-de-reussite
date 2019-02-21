@@ -31,3 +31,10 @@
   footer p {
     margin-bottom: .25rem;
   }
+
+  bot{
+    background-color: beige;
+  }
+  human{
+    background-color: lightgreen;
+  }
