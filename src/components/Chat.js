@@ -75,7 +75,7 @@ class Chat extends Component {
     return (
       <div id='chat-content'>
         {this.state.chat.map((m) =>
-          <div><MessageChat message={m.message} color = {m.color}/></div>
+          <div><MessageChat message={m.message} color = {m.color} /></div>
         )}
         {userAnswer}
       </div>

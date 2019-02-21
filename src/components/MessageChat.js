@@ -17,13 +17,12 @@ class MessageChat extends Component {
 
   render() {
     let messageBox;
-    if (this.props.color===1) {
+    if (this.props.color===0) {
         messageBox = (
             <div>
                 <div class="text-box-blue">
                     <p> {this.props.message} </p>
                 </div>
-                <div class="bullet-blue"></div>
             </div>
         )
     }
@@ -33,7 +32,6 @@ class MessageChat extends Component {
                 <div class="text-box-gray">
                     <p> {this.props.message} </p>
                 </div>
-                <div class="bullet-gray"></div>
             </div>
         )
     }
